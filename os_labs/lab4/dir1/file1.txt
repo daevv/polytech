@@ -1,0 +1,3 @@
+hello, it's me, file 1 in dir 2
+we are not the same
+update

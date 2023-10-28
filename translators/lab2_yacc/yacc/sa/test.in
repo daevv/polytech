@@ -1,0 +1,19 @@
+repeat          // repeat-until
+  inc ax 
+  repeat        // nested repeat-until
+    add bx, 1
+  until c
+  dec ax
+until z 
+mov dx, 03f8
+while  z        // while-end
+  in al, dx
+  test al,bit 0
+end
+inc al
+// "if-else-end" not yet supported
+// if g
+//   xor ah,ah
+// end
+ret
+

@@ -1,0 +1,6 @@
+./2.sh      1	#! /bin/bash
+./4.sh      1	#! /bin/bash
+./5.sh      1	#! /bin/bash
+./3_2.sh      1	#! /bin/bash
+./3_1.sh      1	#! /bin/bash
+./first.sh      1	#!/bin/bash
