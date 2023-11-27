@@ -3,7 +3,7 @@
 #include "y.tab.h"
 
 #define YYSTYPE long
-extern YYSTYPE yylval;
+/* extern YYSTYPE yylval; */
 %}
 
 %%

@@ -4,5 +4,5 @@ yacc -d *.y
 #yacc -vtd *.y
 #lex: option -s to supress default action ECHO
 lex -s *.l
-cc *.c
+gcc *.c
 

@@ -2,20 +2,29 @@
 #include <stdio.h>
 %}
 
-%option noyywrap
+OPERATOR [\+\-\*/]
+DIGIT [0-9]+
+LETTER [A-Za-z]
+IDENTIFIER ({LETTER}+{DIGIT}*)
 
 %%
-[0-9]+        { printf("INTEGER: %s\n", yytext); }
-[a-zA-Z][a-zA-Z0-9]*     { printf("IDENTIFIER: %s\n", yytext); }
-[-+*/]         { printf("OPERATOR: %s\n", yytext); }
-[-+]+         { printf("UNARY OPERATOR: %s\n", yytext); }
-\n            { /* игнорируем символы новой строки */ }
-[ \t]         { /* игнорируем пробелы и табуляцию */ }
-.             { printf("ERROR: %s\n", yytext); }
+
+^[\+\*/].* { printf("Ошибка: Оператор в начале строки не является унарным - %s\n", yytext); }
+.*{OPERATOR}{DIGIT}{IDENTIFIER}.*	 { printf("Ошибка: неправильный формат идентификатора - %s\n", yytext); }
+{DIGIT}{IDENTIFIER}.* { printf("Ошибка: неправильный формат идентификатора - %s\n", yytext); }
+^\-?{DIGIT} { printf("R1:=%s\n", yytext); }
+^\-?{IDENTIFIER} { printf("R1:=%s\n", yytext); }
+{OPERATOR}{DIGIT} { printf("R1:=R1%s\n", yytext); }
+{OPERATOR}{IDENTIFIER} { printf("R1:=R1%s\n", yytext); }
+{OPERATOR}{OPERATOR}.* { printf("Ошибка: два оператора подряд - %s\n", yytext); }
+
+\n                { printf("-------\n"); }
+\r                { printf("-------\n"); }
+.                { printf("Ошибка: Недопустимый символ - %s\n", yytext); }
 
 %%
 
 int main() {
-    yylex(); /* Запуск анализатора */
+    yylex();
     return 0;
 }

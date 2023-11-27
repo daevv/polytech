@@ -1,7 +1,7 @@
 %{
 #define YYSTYPE long
 
-long abs_date (int, int, int);	/* month (0-11), day, year */
+long abs_date (long, long, long);	/* month (0-11), day, year */
 %}
 
 %token  NUMBER MONTH
