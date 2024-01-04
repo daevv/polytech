@@ -1,0 +1,351 @@
+State 1 conflicts: 1 shift/reduce
+State 18 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: ε
+    2      | input line
+
+    3 line: NEWLINE
+    4     | expr NEWLINE
+
+    5 expr: ε
+    6     | INTEGER
+    7     | LPAREN sublist RPAREN
+    8     | expr COMMA expr
+
+    9 sublist: REAL COMMA INTEGER COMMA IDENTIFIER
+   10        | REAL COMMA IDENTIFIER COMMA INTEGER
+   11        | INTEGER COMMA IDENTIFIER COMMA REAL
+   12        | INTEGER COMMA REAL COMMA IDENTIFIER
+   13        | IDENTIFIER COMMA REAL COMMA INTEGER
+   14        | IDENTIFIER COMMA INTEGER COMMA REAL
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    INTEGER <integer_val> (258) 6 9 10 11 12 13 14
+    REAL <real_val> (259) 9 10 11 12 13 14
+    IDENTIFIER <identifier> (260) 9 10 11 12 13 14
+    LPAREN (261) 7
+    RPAREN (262) 7
+    COMMA (263) 8 9 10 11 12 13 14
+    NEWLINE (264) 3 4
+
+
+Nonterminals, with rules where they appear
+
+    $accept (10)
+        on left: 0
+    input (11)
+        on left: 1 2
+        on right: 0 2
+    line (12)
+        on left: 3 4
+        on right: 2
+    expr (13)
+        on left: 5 6 7 8
+        on right: 4 8
+    sublist (14)
+        on left: 9 10 11 12 13 14
+        on right: 7
+
+
+State 0
+
+    0 $accept: • input $end
+
+    $default  reduce using rule 1 (input)
+
+    input  go to state 1
+
+
+State 1
+
+    0 $accept: input • $end
+    2 input: input • line
+
+    $end     shift, and go to state 2
+    INTEGER  shift, and go to state 3
+    LPAREN   shift, and go to state 4
+    NEWLINE  shift, and go to state 5
+
+    NEWLINE   [reduce using rule 5 (expr)]
+    $default  reduce using rule 5 (expr)
+
+    line  go to state 6
+    expr  go to state 7
+
+
+State 2
+
+    0 $accept: input $end •
+
+    $default  accept
+
+
+State 3
+
+    6 expr: INTEGER •
+
+    $default  reduce using rule 6 (expr)
+
+
+State 4
+
+    7 expr: LPAREN • sublist RPAREN
+
+    INTEGER     shift, and go to state 8
+    REAL        shift, and go to state 9
+    IDENTIFIER  shift, and go to state 10
+
+    sublist  go to state 11
+
+
+State 5
+
+    3 line: NEWLINE •
+
+    $default  reduce using rule 3 (line)
+
+
+State 6
+
+    2 input: input line •
+
+    $default  reduce using rule 2 (input)
+
+
+State 7
+
+    4 line: expr • NEWLINE
+    8 expr: expr • COMMA expr
+
+    COMMA    shift, and go to state 12
+    NEWLINE  shift, and go to state 13
+
+
+State 8
+
+   11 sublist: INTEGER • COMMA IDENTIFIER COMMA REAL
+   12        | INTEGER • COMMA REAL COMMA IDENTIFIER
+
+    COMMA  shift, and go to state 14
+
+
+State 9
+
+    9 sublist: REAL • COMMA INTEGER COMMA IDENTIFIER
+   10        | REAL • COMMA IDENTIFIER COMMA INTEGER
+
+    COMMA  shift, and go to state 15
+
+
+State 10
+
+   13 sublist: IDENTIFIER • COMMA REAL COMMA INTEGER
+   14        | IDENTIFIER • COMMA INTEGER COMMA REAL
+
+    COMMA  shift, and go to state 16
+
+
+State 11
+
+    7 expr: LPAREN sublist • RPAREN
+
+    RPAREN  shift, and go to state 17
+
+
+State 12
+
+    8 expr: expr COMMA • expr
+
+    INTEGER  shift, and go to state 3
+    LPAREN   shift, and go to state 4
+
+    $default  reduce using rule 5 (expr)
+
+    expr  go to state 18
+
+
+State 13
+
+    4 line: expr NEWLINE •
+
+    $default  reduce using rule 4 (line)
+
+
+State 14
+
+   11 sublist: INTEGER COMMA • IDENTIFIER COMMA REAL
+   12        | INTEGER COMMA • REAL COMMA IDENTIFIER
+
+    REAL        shift, and go to state 19
+    IDENTIFIER  shift, and go to state 20
+
+
+State 15
+
+    9 sublist: REAL COMMA • INTEGER COMMA IDENTIFIER
+   10        | REAL COMMA • IDENTIFIER COMMA INTEGER
+
+    INTEGER     shift, and go to state 21
+    IDENTIFIER  shift, and go to state 22
+
+
+State 16
+
+   13 sublist: IDENTIFIER COMMA • REAL COMMA INTEGER
+   14        | IDENTIFIER COMMA • INTEGER COMMA REAL
+
+    INTEGER  shift, and go to state 23
+    REAL     shift, and go to state 24
+
+
+State 17
+
+    7 expr: LPAREN sublist RPAREN •
+
+    $default  reduce using rule 7 (expr)
+
+
+State 18
+
+    8 expr: expr • COMMA expr
+    8     | expr COMMA expr •
+
+    COMMA  shift, and go to state 12
+
+    COMMA     [reduce using rule 8 (expr)]
+    $default  reduce using rule 8 (expr)
+
+
+State 19
+
+   12 sublist: INTEGER COMMA REAL • COMMA IDENTIFIER
+
+    COMMA  shift, and go to state 25
+
+
+State 20
+
+   11 sublist: INTEGER COMMA IDENTIFIER • COMMA REAL
+
+    COMMA  shift, and go to state 26
+
+
+State 21
+
+    9 sublist: REAL COMMA INTEGER • COMMA IDENTIFIER
+
+    COMMA  shift, and go to state 27
+
+
+State 22
+
+   10 sublist: REAL COMMA IDENTIFIER • COMMA INTEGER
+
+    COMMA  shift, and go to state 28
+
+
+State 23
+
+   14 sublist: IDENTIFIER COMMA INTEGER • COMMA REAL
+
+    COMMA  shift, and go to state 29
+
+
+State 24
+
+   13 sublist: IDENTIFIER COMMA REAL • COMMA INTEGER
+
+    COMMA  shift, and go to state 30
+
+
+State 25
+
+   12 sublist: INTEGER COMMA REAL COMMA • IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 31
+
+
+State 26
+
+   11 sublist: INTEGER COMMA IDENTIFIER COMMA • REAL
+
+    REAL  shift, and go to state 32
+
+
+State 27
+
+    9 sublist: REAL COMMA INTEGER COMMA • IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 33
+
+
+State 28
+
+   10 sublist: REAL COMMA IDENTIFIER COMMA • INTEGER
+
+    INTEGER  shift, and go to state 34
+
+
+State 29
+
+   14 sublist: IDENTIFIER COMMA INTEGER COMMA • REAL
+
+    REAL  shift, and go to state 35
+
+
+State 30
+
+   13 sublist: IDENTIFIER COMMA REAL COMMA • INTEGER
+
+    INTEGER  shift, and go to state 36
+
+
+State 31
+
+   12 sublist: INTEGER COMMA REAL COMMA IDENTIFIER •
+
+    $default  reduce using rule 12 (sublist)
+
+
+State 32
+
+   11 sublist: INTEGER COMMA IDENTIFIER COMMA REAL •
+
+    $default  reduce using rule 11 (sublist)
+
+
+State 33
+
+    9 sublist: REAL COMMA INTEGER COMMA IDENTIFIER •
+
+    $default  reduce using rule 9 (sublist)
+
+
+State 34
+
+   10 sublist: REAL COMMA IDENTIFIER COMMA INTEGER •
+
+    $default  reduce using rule 10 (sublist)
+
+
+State 35
+
+   14 sublist: IDENTIFIER COMMA INTEGER COMMA REAL •
+
+    $default  reduce using rule 14 (sublist)
+
+
+State 36
+
+   13 sublist: IDENTIFIER COMMA REAL COMMA INTEGER •
+
+    $default  reduce using rule 13 (sublist)
